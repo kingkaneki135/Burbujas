@@ -34,7 +34,8 @@
     </style>
 </head>
 <body>
-    <audio id="background-music" src="C:\Users\Lautaro\Downloads\Proyectos\Burbujas\Ed Sheeran - photograph.mp3" autoplay loop volume="1.0"></audio>
+    <!-- Usa una ruta relativa -->
+    <audio id="background-music" src="Ed Sheeran - photograph.mp3" loop></audio>
     <div class="message" id="message"></div>
     <script>
         const frases = [
@@ -52,9 +53,8 @@
             "Te quiero 3 millones.",
             "Con vos nada es un sacrificio.",
             "Tus ojos son mi kiptonita.",
-
         ];
-        
+
         let mensajeVisible = false;
 
         function crearBurbuja() {
@@ -64,7 +64,15 @@
             burbuja.style.height = burbuja.style.width;
             burbuja.style.left = `${Math.random() * window.innerWidth}px`;
             burbuja.style.top = `${Math.random() * window.innerHeight}px`;
+
             burbuja.onclick = function() {
+                // Iniciar la música al primer clic
+                const music = document.getElementById('background-music');
+                if (music.paused) {
+                    music.volume = 1.0;
+                    music.play();
+                }
+
                 if (!mensajeVisible) {
                     const mensaje = frases[Math.floor(Math.random() * frases.length)];
                     document.getElementById('message').innerText = mensaje;
@@ -80,6 +88,7 @@
                     }, 300);
                 }
             };
+
             document.body.appendChild(burbuja);
         }
 
