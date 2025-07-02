@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burbujas de Amor</title>
+    <style>
+        body {
+            background-color: black;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 192, 203, 0.7);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #e91e63;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <audio id="background-music" src="C:\Users\Lautaro\Downloads\Proyectos\Burbujas\Ed Sheeran - photograph.mp3" autoplay loop volume="1.0"></audio>
+    <div class="message" id="message"></div>
+    <script>
+        const frases = [
+            "Sos mi mundo.",
+            "Te quiero hasta la luna.",
+            "Sos mi razón de ser.",
+            "Con vos todo es mejor.",
+            "Sos el amor de mi vida.",
+            "Sos la luz de mi vida.",
+            "A tu lado todo es de colores.",
+            "Sos mi bebe hermosa.",
+            "Sos mi tesoro mas importante.",
+            "Sos la dueña de mi corazon.",
+            "Ti amo.",
+            "Te quiero 3 millones.",
+            "Con vos nada es un sacrificio.",
+            "Tus ojos son mi kiptonita.",
+
+        ];
+        
+        let mensajeVisible = false;
+
+        function crearBurbuja() {
+            const burbuja = document.createElement('div');
+            burbuja.className = 'bubble';
+            burbuja.style.width = `${Math.random() * 100 + 30}px`;
+            burbuja.style.height = burbuja.style.width;
+            burbuja.style.left = `${Math.random() * window.innerWidth}px`;
+            burbuja.style.top = `${Math.random() * window.innerHeight}px`;
+            burbuja.onclick = function() {
+                if (!mensajeVisible) {
+                    const mensaje = frases[Math.floor(Math.random() * frases.length)];
+                    document.getElementById('message').innerText = mensaje;
+                    document.getElementById('message').style.display = 'block';
+                    mensajeVisible = true;
+                    burbuja.style.transform = 'scale(0)';
+                    setTimeout(() => {
+                        burbuja.remove();
+                        setTimeout(() => {
+                            document.getElementById('message').style.display = 'none';
+                            mensajeVisible = false;
+                        }, 2000);
+                    }, 300);
+                }
+            };
+            document.body.appendChild(burbuja);
+        }
+
+        setInterval(crearBurbuja, 1000);
+    </script>
+</body>
+</html>
